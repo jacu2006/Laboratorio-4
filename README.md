@@ -2,14 +2,14 @@
 Fecha: 23/09/2026
 
 ## Contenido del Repositorio
-Este repositorio contiene la implementación de un sistema de gestión de inventario de productos desarrollado en C# (Windows Forms) conectado a una base de datos relacional MySQL. El sistema permite realizar operaciones completas de CRUD (Crear, Leer, Actualizar, Eliminar), la carga y conversión binaria de imágenes, la aplicación de patrones de diseño mediante interfaces para validaciones polimórficas, y la normalización automática de datos para garantizar la integridad de la información.
+Este repositorio contiene la implementación de un sistema de gestión de inventario de productos desarrollado en C# (Windows Forms) conectado a una base de datos relacional MySQL. El sistema permite realizar operaciones completas de CRUD (Crear, Leer, Actualizar, Eliminar), la carga y conversión binaria de imágenes, la aplicación de patrones de diseño mediante interfaces para validaciones polimórficas, la normalización automática de datos para garantizar la integridad de la información, y la auditoría con marcas de tiempo (`fecha_creacion` y `fecha_modificacion`) para la trazabilidad de los registros.
 
 ## Tecnologías Utilizadas
-* **Lenguaje / Framework:** C# (.NET / Windows Forms)
-* **Base de Datos:** MySQL / MySQL Workbench
-* **Librerías:** `MySql.Data`, `System.Drawing`, `System.Globalization`
-* **Entorno de Desarrollo:** Visual Studio 2022
-* **Control de Versiones:** Git / GitHub
+- **Lenguaje / Framework:** C# (.NET / Windows Forms)
+- **Base de Datos:** MySQL / MySQL Workbench
+- **Librerías:** `MySql.Data`, `System.Drawing`, `System.Globalization`
+- **Entorno de Desarrollo:** Visual Studio 2022
+- **Control de Versiones:** Git / GitHub
 
 ## Capturas de Pantalla y Problemas
 
@@ -28,40 +28,50 @@ Se implementó el contrato de interfaz `IValidadorCampo` para desvincular la ló
 ![Control de Duplicados](./img/control_duplicados.png)
 
 Para prevenir inconsistencias y duplicidad de productos:
-* **Nombres:** Se convierten automáticamente a mayúsculas sostenidas (`.ToUpper().Trim()`).
-* **Precios:** Se redondean a 2 decimales en la capa de datos (`Math.Round`) y se fuerzan visualmente con formato fijo a dos decimales (`F2`).
-* **Verificación de Duplicados:** Se implementó una comprobación en memoria previa a la inserción o modificación para bloquear productos repetidos.
+- **Nombres:** Se convierten automáticamente a mayúsculas sostenidas (`.ToUpper().Trim()`).
+- **Precios:** Se redondean a 2 decimales en la capa de datos (`Math.Round`) y se fuerzan visualmente con formato fijo a dos decimales (`F2`).
+- **Verificación de Duplicados:** Se implementó una comprobación en memoria previa a la inserción o modificación para bloquear productos repetidos.
 
 ### Ejercicio 4: Librería de Gestión de Imágenes (`ImagenHelper`)
 ![Vista con Imágenes](./img/vista_imagenes.png)
 
 Se delegó el procesamiento de imágenes a una clase estática independiente (`ImagenHelper.cs`). Esta librería convierte objetos `Image` a arreglos de bytes (`byte[]`) para su almacenamiento tipo `LONGBLOB` en MySQL, y realiza el proceso inverso (`ByteArrayToImage`) para renderizarlas en el formulario y en la tabla.
 
-## Estructura de Carpetas o Directorio
+### Ejercicio 5: Registro de Fechas y Auditoría de Cambios
+Se agregaron los campos `fecha_creacion` y `fecha_modificacion` en la tabla de MySQL, la entidad `Producto.cs`, la capa de lectura `Conexion.cs` y la cuadrícula `DataGridView`. Al crear un registro, se capturan ambas fechas con el momento exacto de inserción; al modificar un producto, se conserva su fecha de creación original y se actualiza automáticamente la fecha de modificación.
+
+## Estructura de Carpetas o Directorios
 
 ```plaintext
 Laboratorio-4/
 │
 ├── EjemploSProyBD/
 │   │
-│   ├── bin/                       # Binarios compilados
-│   ├── obj/                       # Archivos objetos temporales de compilación
-│   ├── Properties/                # Propiedades de la solución y recursos del ensamblado
+│   ├── bin/                        # Binarios compilados
+│   ├── obj/                        # Archivos objetos temporales de compilación
+│   ├── Properties/                 # Propiedades de la solución y recursos del ensamblado
 │   │
-│   ├── Conexion.cs                # Clase de capa de datos y consultas SQL parametrizadas
-│   ├── EjemploSProyBD.csproj      # Archivo de proyecto de C#
-│   ├── EjemploSProyBD.csproj.user # Configuraciones locales de usuario
-│   ├── EjemploSProyBD.slnx        # Archivo de solución de Visual Studio
-│   ├── Form1.cs                   # Lógica principal de la interfaz gráfica y eventos
-│   ├── Form1.Designer.cs          # Código generado automáticamente para el diseño visual
-│   ├── Form1.resx                 # Archivo de recursos del formulario
-│   ├── ImagenHelper.cs            # Librería estática exclusiva para conversión de imágenes
-│   ├── IValidadorCampo.cs         # Interfaz contrato para las reglas de validación
-│   ├── Producto.cs                # Modelo de entidad de producto
-│   ├── Program.cs                 # Punto de entrada principal de la aplicación
-│   └── Validadores.cs             # Clases concretas que implementan IValidadorCampo
+│   ├── Conexion.cs                 # Clase de capa de datos y consultas SQL parametrizadas
+│   ├── EjemploSProyBD.csproj       # Archivo de proyecto de C#
+│   ├── EjemploSProyBD.csproj.user  # Configuraciones locales de usuario
+│   ├── EjemploSProyBD.slnx         # Archivo de solución de Visual Studio
+│   ├── Form1.cs                    # Lógica principal de la interfaz gráfica y eventos
+│   ├── Form1.Designer.cs           # Código generado automáticamente para el diseño visual
+│   ├── Form1.resx                  # Archivo de recursos del formulario
+│   ├── ImagenHelper.cs             # Librería estática exclusiva para conversión de imágenes
+│   ├── IValidadorCampo.cs          # Interfaz contrato para las reglas de validación
+│   ├── Producto.cs                 # Modelo de entidad de producto
+│   ├── Program.cs                  # Punto de entrada principal de la aplicación
+│   └── Validadores.cs              # Clases concretas que implementan IValidadorCampo
 │
-└── REAMDE.md                      # Documentación principal del repositorio
+├── img/                            # Carpeta con capturas de pantalla para la documentación
+│   ├── control_duplicados.png      # Captura de la validación de productos duplicados
+│   ├── interfaz_principal.png      # Captura de la vista principal del sistema
+│   ├── validacion_campos.png       # Captura de error de validación de campos
+│   └── vista_imagenes.png          # Captura de la previsualización y carga de imágenes
+│
+├── productosdb.sql                 # Script SQL para la creación e inicialización de la base de datos
+└── README.md                       # Documentación principal del repositorio
 ```
 
 ## Instrucciones de Ejecución / Uso

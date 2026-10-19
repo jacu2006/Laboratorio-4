@@ -27,7 +27,7 @@ namespace EjemploSProyBD
         public static List<Producto> GetProductos(string filtro)
         {
             List<Producto> listaProductos = new List<Producto>();
-            string sqlQuery = "SELECT id, nombre, precio, cantidad, imagen FROM productos";
+            string sqlQuery = "SELECT id, nombre, precio, cantidad, imagen, fecha_creacion, fecha_modificacion FROM productos";
 
             if (!string.IsNullOrEmpty(filtro))
             {
@@ -62,6 +62,9 @@ namespace EjemploSProyBD
                             regProducto.Cantidad = Convert.ToInt32(mReader["cantidad"]);
 
                             regProducto.Imagen = mReader["imagen"] != DBNull.Value ? (byte[])mReader["imagen"] : null;
+
+                            regProducto.FechaCreacion = Convert.ToDateTime(mReader["fecha_creacion"]);
+                            regProducto.FechaModificacion = Convert.ToDateTime(mReader["fecha_modificacion"]);
 
                             // agregamos el objeto a la lista genérica
                             listaProductos.Add(regProducto);

@@ -11,5 +11,7 @@ namespace EjemploSProyBD
         public decimal Precio { get; set; }
         public int Cantidad { get; set; }
         public byte[] Imagen { get; set; }
+        public DateTime FechaCreacion { get; set; }
+        public DateTime FechaModificacion { get; set; }
     }
 }

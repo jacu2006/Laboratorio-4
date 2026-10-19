@@ -35,7 +35,11 @@ namespace EjemploSProyBD
 
                 string precioFormateado = prod.Precio.ToString("F2", CultureInfo.InvariantCulture);
 
-                dgvProductos.Rows.Add(prod.Id, prod.Nombre, precioFormateado, prod.Cantidad, img);
+                // Formatear las fechas para mostrarlas de forma legible
+                string fechaCreacionStr = prod.FechaCreacion.ToString("dd/MM/yyyy HH:mm");
+                string fechaModifStr = prod.FechaModificacion.ToString("dd/MM/yyyy HH:mm");
+
+                dgvProductos.Rows.Add(prod.Id, prod.Nombre, precioFormateado, prod.Cantidad, img, fechaCreacionStr, fechaModifStr);
             }
         }
 
@@ -66,7 +70,7 @@ namespace EjemploSProyBD
                 return;
             }
 
-            CargarDatosProductos();
+            CargarDatosProductos(esModificacion: false);
 
             if (ExisteProductoDuplicado(myProducto["nombre"].ToString(), 0))
             {
@@ -84,7 +88,7 @@ namespace EjemploSProyBD
             }
         }
 
-        private void CargarDatosProductos()
+        private void CargarDatosProductos(bool esModificacion = false)
         {
             myProducto.Clear();
 
@@ -98,6 +102,19 @@ namespace EjemploSProyBD
 
             // Uso de la librería externa para convertir Image a bytes
             myProducto["imagen"] = ImagenHelper.ImageToByteArray(btnCargarImagen.Image);
+            DateTime ahora = DateTime.Now;
+
+            if (!esModificacion)
+            {
+                // Al guardar uno nuevo, establecemos ambas fechas
+                myProducto["fecha_creacion"] = ahora;
+                myProducto["fecha_modificacion"] = ahora;
+            }
+            else
+            {
+                // Al modificar, solo actualizamos la fecha de modificación (no tocamos la de creación)
+                myProducto["fecha_modificacion"] = ahora;
+            }
         }
 
         private bool ExisteProductoDuplicado(string nombreNormalizado, int idIgnorar)
@@ -190,7 +207,7 @@ namespace EjemploSProyBD
                 return;
             }
 
-            CargarDatosProductos();
+            CargarDatosProductos(esModificacion: true);
 
             if (ExisteProductoDuplicado(myProducto["nombre"].ToString(), idSeleccionado))
             {

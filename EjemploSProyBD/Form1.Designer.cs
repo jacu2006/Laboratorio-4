@@ -44,6 +44,8 @@
             Column3 = new DataGridViewTextBoxColumn();
             Column4 = new DataGridViewTextBoxColumn();
             Column5 = new DataGridViewImageColumn();
+            FechaCreacion = new DataGridViewTextBoxColumn();
+            FechaModificacion = new DataGridViewTextBoxColumn();
             imageList1 = new ImageList(components);
             btnGuardar = new Button();
             btnModificar = new Button();
@@ -72,7 +74,7 @@
             panel1.Controls.Add(txtBuscar);
             panel1.Location = new Point(46, 306);
             panel1.Name = "panel1";
-            panel1.Size = new Size(710, 64);
+            panel1.Size = new Size(927, 64);
             panel1.TabIndex = 0;
             // 
             // label5
@@ -150,12 +152,12 @@
             // dgvProductos
             // 
             dgvProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProductos.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5 });
+            dgvProductos.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5, FechaCreacion, FechaModificacion });
             dgvProductos.Location = new Point(46, 387);
             dgvProductos.Name = "dgvProductos";
             dgvProductos.RowHeadersWidth = 51;
             dgvProductos.RowTemplate.Height = 80;
-            dgvProductos.Size = new Size(710, 184);
+            dgvProductos.Size = new Size(927, 329);
             dgvProductos.TabIndex = 5;
             dgvProductos.CellClick += dgvProductos_CellClick;
             // 
@@ -197,6 +199,20 @@
             Column5.SortMode = DataGridViewColumnSortMode.Automatic;
             Column5.Width = 125;
             // 
+            // FechaCreacion
+            // 
+            FechaCreacion.HeaderText = "Fecha de creación";
+            FechaCreacion.MinimumWidth = 6;
+            FechaCreacion.Name = "FechaCreacion";
+            FechaCreacion.Width = 125;
+            // 
+            // FechaModificacion
+            // 
+            FechaModificacion.HeaderText = "Fecha de modificación";
+            FechaModificacion.MinimumWidth = 6;
+            FechaModificacion.Name = "FechaModificacion";
+            FechaModificacion.Width = 125;
+            // 
             // imageList1
             // 
             imageList1.ColorDepth = ColorDepth.Depth32Bit;
@@ -215,7 +231,7 @@
             // 
             btnGuardar.ImageKey = "boton-agregar.png";
             btnGuardar.ImageList = imageList1;
-            btnGuardar.Location = new Point(46, 595);
+            btnGuardar.Location = new Point(46, 745);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(115, 59);
             btnGuardar.TabIndex = 6;
@@ -228,7 +244,7 @@
             // 
             btnModificar.ImageKey = "lapices.png";
             btnModificar.ImageList = imageList1;
-            btnModificar.Location = new Point(183, 595);
+            btnModificar.Location = new Point(318, 745);
             btnModificar.Name = "btnModificar";
             btnModificar.Size = new Size(115, 59);
             btnModificar.TabIndex = 7;
@@ -241,7 +257,7 @@
             // 
             btnEliminar.ImageKey = "borrar.png";
             btnEliminar.ImageList = imageList1;
-            btnEliminar.Location = new Point(321, 595);
+            btnEliminar.Location = new Point(584, 745);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(115, 59);
             btnEliminar.TabIndex = 8;
@@ -254,7 +270,7 @@
             // 
             btnLimpiar.ImageKey = "limpiar.png";
             btnLimpiar.ImageList = imageList1;
-            btnLimpiar.Location = new Point(464, 595);
+            btnLimpiar.Location = new Point(858, 745);
             btnLimpiar.Name = "btnLimpiar";
             btnLimpiar.Size = new Size(115, 59);
             btnLimpiar.TabIndex = 9;
@@ -266,7 +282,7 @@
             // btnCargarImagen
             // 
             btnCargarImagen.Image = (Image)resources.GetObject("btnCargarImagen.Image");
-            btnCargarImagen.Location = new Point(596, 121);
+            btnCargarImagen.Location = new Point(813, 121);
             btnCargarImagen.Name = "btnCargarImagen";
             btnCargarImagen.Size = new Size(160, 160);
             btnCargarImagen.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -278,28 +294,28 @@
             // 
             txtFolio.Location = new Point(164, 114);
             txtFolio.Name = "txtFolio";
-            txtFolio.Size = new Size(311, 27);
+            txtFolio.Size = new Size(518, 27);
             txtFolio.TabIndex = 3;
             // 
             // txtNombre
             // 
             txtNombre.Location = new Point(164, 163);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(311, 27);
+            txtNombre.Size = new Size(518, 27);
             txtNombre.TabIndex = 11;
             // 
             // txtPrecio
             // 
             txtPrecio.Location = new Point(164, 208);
             txtPrecio.Name = "txtPrecio";
-            txtPrecio.Size = new Size(311, 27);
+            txtPrecio.Size = new Size(518, 27);
             txtPrecio.TabIndex = 12;
             // 
             // txtCantidad
             // 
             txtCantidad.Location = new Point(164, 254);
             txtCantidad.Name = "txtCantidad";
-            txtCantidad.Size = new Size(311, 27);
+            txtCantidad.Size = new Size(518, 27);
             txtCantidad.TabIndex = 13;
             // 
             // label6
@@ -307,7 +323,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = SystemColors.ButtonHighlight;
-            label6.Location = new Point(513, 117);
+            label6.Location = new Point(730, 117);
             label6.Name = "label6";
             label6.Size = new Size(66, 20);
             label6.TabIndex = 14;
@@ -317,9 +333,9 @@
             // 
             panel2.BackColor = SystemColors.Highlight;
             panel2.Controls.Add(label7);
-            panel2.Location = new Point(3, 0);
+            panel2.Location = new Point(-1, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(793, 94);
+            panel2.Size = new Size(1020, 94);
             panel2.TabIndex = 3;
             // 
             // label7
@@ -340,7 +356,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
-            ClientSize = new Size(800, 678);
+            ClientSize = new Size(1020, 832);
             Controls.Add(panel2);
             Controls.Add(label6);
             Controls.Add(txtCantidad);
@@ -401,5 +417,7 @@
         private DataGridViewTextBoxColumn Column3;
         private DataGridViewTextBoxColumn Column4;
         private DataGridViewImageColumn Column5;
+        private DataGridViewTextBoxColumn FechaCreacion;
+        private DataGridViewTextBoxColumn FechaModificacion;
     }
 }
